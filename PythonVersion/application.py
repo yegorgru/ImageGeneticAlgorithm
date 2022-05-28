@@ -37,6 +37,14 @@ class Application:
 		    	self.__settings.set_mutation_type(values[event])
 		    if event == self.__ui.loss_function:
 		    	self.__settings.set_loss_function(values[event])
+		    if event == self.__ui.creation_type:
+		    	self.__settings.set_single_parent(values[event])
+		    	if self.__settings.is_single_parent():
+		    		self.__ui.enable(self.__ui.survivors_number)
+		    	else:
+		    		self.__settings.set_survivors_number(2)
+		    		self.__ui.update(self.__ui.survivors_number, 2)
+		    		self.__ui.disable(self.__ui.survivors_number)
 		    if self.__is_running:
 		    	best, loss_value = self.__population.next(self.__target)
 		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(best)))

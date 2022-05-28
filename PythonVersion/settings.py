@@ -6,6 +6,7 @@ class Settings:
 		self.__changes_number = 20
 		self.__mutation_type = "Square"
 		self.__loss_function = "MSE"
+		self.__is_single_parent = True
 
 	def set_changes_scale(self, value):
 		self.__changes_scale = value
@@ -42,3 +43,9 @@ class Settings:
 
 	def get_loss_function(self):
 		return self.__loss_function
+
+	def set_single_parent(self, value):
+		self.__is_single_parent = value == 'Single parent'
+
+	def is_single_parent(self):
+		return self.__is_single_parent

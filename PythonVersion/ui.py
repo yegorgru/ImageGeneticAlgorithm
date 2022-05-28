@@ -14,6 +14,7 @@ class UI:
 		self.changes_number = "-CHANGES_NUMBER-"
 		self.mutation_type = "-COMBO-MUTATION-"
 		self.loss_function = "-LOSS-FUNCTION-"
+		self.creation_type = "-CREATION-TYPE-"
 		self.__settings = settings
 
 	def create_window(self):
@@ -25,6 +26,7 @@ class UI:
 			[sg.Text('Changes max number'), sg.Slider(range=(1, 50), default_value=self.__settings.get_changes_number(), orientation='h', key=self.changes_number, enable_events=True)],
 			[sg.Text('Mutation type'), sg.Combo(values=('Square', 'Line', 'Point', 'Triangle', 'Circle'), default_value='Square', readonly=True, key=self.mutation_type, enable_events=True)],
 			[sg.Text('Loss function'), sg.Combo(values=('MSE', 'RMSE', 'MAE', 'Log-Cosh'), default_value='MSE', readonly=True, key=self.loss_function, enable_events=True)],
+			[sg.Text('Newborn creation type'), sg.Combo(values=('Single parent', 'Two parent'), default_value='Single parent', readonly=True, key=self.creation_type, enable_events=True)],
 			[sg.Text('Generation'), sg.Text(size=(40,1), key=self.iteration)],
 			[sg.Text('Loss value'), sg.Text(size=(40,1), key=self.loss_value)]
 		]
@@ -44,6 +46,12 @@ class UI:
 
 	def update(self, key, value):
 		self.__window[key].update(value)
+
+	def disable(self, key):
+		self.__window[key].update(disabled=True)
+
+	def enable(self, key):
+		self.__window[key].update(disabled=False)
 	
 	def get_width(self):
 		return self.__window.size[0]
