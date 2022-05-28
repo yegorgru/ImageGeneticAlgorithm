@@ -27,6 +27,8 @@ class Application:
 		            pass
 		    if event == self.__ui.changes_scale:
 		    	self.__settings.set_changes_scale(int(values[event]))
+		    if event == self.__ui.parents_number:
+		    	self.__settings.set_parents_number(int(values[event]))
 		    if event == self.__ui.sons_number:
 		    	self.__settings.set_sons_number(int(values[event]))
 		    if event == self.__ui.changes_number:
