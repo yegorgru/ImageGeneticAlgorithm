@@ -13,17 +13,17 @@ class Population:
 
 	def next(self, target):
 		loss_value = self.__loss_sort(target)
-		parents_num = self.__settings.get_parents_number()
-		sons_num = self.__settings.get_sons_number()
-		new_size = self.__settings.get_sons_number() * parents_num + parents_num;
+		survivors_num = self.__settings.get_survivors_number()
+		children_num = self.__settings.get_children_number()
+		new_size = children_num * survivors_num + survivors_num;
 		if new_size != len(self.__population):
-			new_population = self.__population[:parents_num]
-			for i in range(parents_num, new_size):
+			new_population = self.__population[:survivors_num]
+			for i in range(survivors_num, new_size):
 				new_population.append(None)
 			self.__population = new_population
-		for i in range(sons_num):
-			for parent in range(parents_num):
-				self.__population[parents_num+parent*sons_num+i] = self.__get_son(self.__population[parent])
+		for i in range(children_num):
+			for survivor in range(survivors_num):
+				self.__population[survivors_num+survivor*children_num+i] = self.__get_son(self.__population[survivor])
 		return self.__population[0], loss_value
 
 	def __loss_sort(self, target):

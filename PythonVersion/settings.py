@@ -1,8 +1,8 @@
 class Settings:
 	def __init__(self):
 		self.__changes_scale = 20
-		self.__parents_number = 2
-		self.__sons_number = 4
+		self.__survivors_number = 2
+		self.__children_number = 4
 		self.__changes_number = 20
 		self.__mutation_type = "Square"
 		self.__loss_function = "MSE"
@@ -13,17 +13,17 @@ class Settings:
 	def get_changes_scale(self):
 		return self.__changes_scale
 
-	def set_parents_number(self, value):
-		self.__parents_number = value
+	def set_survivors_number(self, value):
+		self.__survivors_number = value
 
-	def get_parents_number(self):
-		return self.__parents_number
+	def get_survivors_number(self):
+		return self.__survivors_number
 
-	def set_sons_number(self, value):
-		self.__sons_number = value
+	def set_children_number(self, value):
+		self.__children_number = value
 
-	def get_sons_number(self):
-		return self.__sons_number
+	def get_children_number(self):
+		return self.__children_number
 
 	def set_changes_number(self, value):
 		self.__changes_number = value

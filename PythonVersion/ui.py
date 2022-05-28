@@ -9,8 +9,8 @@ class UI:
 		self.loss_value = "-LOSS-VALUE"
 		self.exit = (sg.WIN_CLOSED, "Exit")
 		self.changes_scale = "-CHANGES_SCALE-"
-		self.parents_number = "-PARENTS_NUMBER-"
-		self.sons_number = "-SONS_NUMBER-"
+		self.survivors_number = "-SURVIVORS_NUMBER-"
+		self.children_number = "-CHILDREN_NUMBER-"
 		self.changes_number = "-CHANGES_NUMBER-"
 		self.mutation_type = "-COMBO-MUTATION-"
 		self.loss_function = "-LOSS-FUNCTION-"
@@ -20,8 +20,8 @@ class UI:
 		settings_col = [
 			[sg.Text('Path'), sg.In(size=(25,1), enable_events=True, key=self.file_path), sg.FileBrowse(file_types=(("JPG", "*.jpg"), ("PNG", "*.png"),))],
 			[sg.Text('Changes max scale'), sg.Slider(range=(1, 100), default_value=self.__settings.get_changes_scale(), orientation='h', key=self.changes_scale, enable_events=True)],
-			[sg.Text('Number of parents'), sg.Slider(range=(1, 4), default_value=self.__settings.get_parents_number(), orientation='h', key=self.parents_number, enable_events=True)],
-			[sg.Text('Number of sons'), sg.Slider(range=(1, 8), default_value=self.__settings.get_sons_number(), orientation='h', key=self.sons_number, enable_events=True)],
+			[sg.Text('Number of survivors'), sg.Slider(range=(1, 4), default_value=self.__settings.get_survivors_number(), orientation='h', key=self.survivors_number, enable_events=True)],
+			[sg.Text('Number of children'), sg.Slider(range=(1, 8), default_value=self.__settings.get_children_number(), orientation='h', key=self.children_number, enable_events=True)],
 			[sg.Text('Changes max number'), sg.Slider(range=(1, 50), default_value=self.__settings.get_changes_number(), orientation='h', key=self.changes_number, enable_events=True)],
 			[sg.Text('Mutation type'), sg.Combo(values=('Square', 'Line', 'Point', 'Triangle', 'Circle'), default_value='Square', readonly=True, key=self.mutation_type, enable_events=True)],
 			[sg.Text('Loss function'), sg.Combo(values=('MSE', 'RMSE', 'MAE', 'Log-Cosh'), default_value='MSE', readonly=True, key=self.loss_function, enable_events=True)],
