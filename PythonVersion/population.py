@@ -11,11 +11,8 @@ class Population:
 		for i in range(count):
 			self.__population.append(np.random.randint(0,256,shape,dtype=np.uint8))
 
-	def get_best(self):
-		return self.__population[0]
-
 	def next(self, target):
-		self.__loss_sort(target)
+		loss_value = self.__loss_sort(target)
 		new_size = self.__settings.get_sons_number() * 2 + 2;
 		if new_size != len(self.__population):
 			new_population = [self.__population[0], self.__population[1]]
@@ -25,17 +22,18 @@ class Population:
 		for i in range(self.__settings.get_sons_number()):
 			self.__population[2+i] = self.__get_son(self.__population[0])
 			self.__population[2+self.__settings.get_sons_number()+i] = self.__get_son(self.__population[1])
+		return self.__population[0], loss_value
 
 	def __loss_sort(self, target):
 		losses = []
 		for curr in range(len(self.__population)):
 			losses.append([curr, self.__loss_counter.get_loss(self.__settings.get_loss_function(), target/256, self.__population[curr]/256)])
 		losses.sort(key = lambda x: x[1])
-		print(losses[0][1])
 		new_gen = []
 		for i in losses:
 			new_gen.append(self.__population[i[0]])
 		self.__population = new_gen
+		return losses[0][1]
 
 	def __get_son(self, parent):
 		son = np.copy(parent)

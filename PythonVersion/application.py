@@ -36,10 +36,11 @@ class Application:
 		    if event == self.__ui.loss_function:
 		    	self.__settings.set_loss_function(values[event])
 		    if self.__is_running:
-		    	self.__population.next(self.__target)
-		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(self.__population.get_best())))
+		    	best, loss_value = self.__population.next(self.__target)
+		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(best)))
 		    	self.__iter = self.__iter + 1;
 		    	self.__ui.update(self.__ui.iteration, self.__iter)
+		    	self.__ui.update(self.__ui.loss_value, loss_value)
 		self.__ui.close()
 
 	def start(self, filename):
