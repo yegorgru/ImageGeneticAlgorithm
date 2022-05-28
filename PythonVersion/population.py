@@ -1,4 +1,5 @@
 import numpy as np
+from mutation import *
 
 class Population:
 	def __init__(self, settings, shape, count):
@@ -41,16 +42,7 @@ class Population:
 
 	def __get_son(self, parent):
 		son = np.copy(parent)
-		for i in range(np.random.randint(1,self.__settings.get_changes_number())):
-			#son[np.random.randint(parent.shape[0])][np.random.randint(parent.shape[1])][np.random.randint(parent.shape[2])] = np.random.randint(0,256)
-			radius = np.random.randint(self.__settings.get_changes_scale())
-			x = np.random.randint(parent.shape[0])
-			y = np.random.randint(parent.shape[1])
-			rgb = [np.random.randint(0,256), np.random.randint(0,256), np.random.randint(0,256)]
-			if radius == 0:
-				son[x][y] = rgb
-			else:
-				for i in range (max(0, x - radius), min(parent.shape[0], x + radius)):
-					for j in range (max(0, y - radius), min(parent.shape[1], y + radius)):
-						son[i][j] = rgb
+		for i in range(np.random.randint(1,self.__settings.get_changes_number()+1)):
+			scale = np.random.randint(self.__settings.get_changes_scale())
+			mutation(self.__settings.get_mutation_type(), son, scale)
 		return son

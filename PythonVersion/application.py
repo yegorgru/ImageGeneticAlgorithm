@@ -31,6 +31,8 @@ class Application:
 		    	self.__settings.set_sons_number(int(values[event]))
 		    if event == self.__ui.changes_number:
 		    	self.__settings.set_changes_number(int(values[event]))
+		    if event == self.__ui.mutation_type:
+		    	self.__settings.set_mutation_type(values[event])
 		    if self.__is_running:
 		    	self.__population.next(self.__target)
 		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(self.__population.get_best())))
