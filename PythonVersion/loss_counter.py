@@ -13,7 +13,7 @@ class LossCounter:
 			return self.__log_cosh_loss(target, pred)
 
 	def __mean_squared_error(self, target, pred):
-		diff = pred - target ** 2
+		diff = (pred - target) ** 2
 		mean_diff = diff.mean()
 		return mean_diff
 
