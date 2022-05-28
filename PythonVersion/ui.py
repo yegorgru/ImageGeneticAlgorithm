@@ -11,6 +11,7 @@ class UI:
 		self.sons_number = "-SONS_NUMBER-"
 		self.changes_number = "-CHANGES_NUMBER-"
 		self.mutation_type = "-COMBO-MUTATION-"
+		self.loss_function = "-LOSS-FUNCTION-"
 		self.__settings = settings
 
 	def create_window(self):
@@ -20,7 +21,8 @@ class UI:
 			[sg.Text('Changes max scale'), sg.Slider(range=(1, 100), default_value=self.__settings.get_changes_scale(), orientation='h', key=self.changes_scale, enable_events=True)],
 			[sg.Text('Number of sons'), sg.Slider(range=(1, 10), default_value=self.__settings.get_sons_number(), orientation='h', key=self.sons_number, enable_events=True)],
 			[sg.Text('Changes max number'), sg.Slider(range=(1, 50), default_value=self.__settings.get_changes_number(), orientation='h', key=self.changes_number, enable_events=True)],
-			[sg.Text('Mutation type'), sg.Combo(values=('Square', 'Line', 'Point', 'Triangle', 'Circle'), default_value='Square', readonly=True, key=self.mutation_type, enable_events=True)]
+			[sg.Text('Mutation type'), sg.Combo(values=('Square', 'Line', 'Point', 'Triangle', 'Circle'), default_value='Square', readonly=True, key=self.mutation_type, enable_events=True)],
+			[sg.Text('Loss function'), sg.Combo(values=('MSE', 'RMSE', 'MAE', 'Log-Cosh'), default_value='MSE', readonly=True, key=self.loss_function, enable_events=True)]
 		]
 		target_image_col = [[sg.Image(key=self.target_image_name)]]
 		created_image_col = [[sg.Image(key=self.generated_image_name)]]

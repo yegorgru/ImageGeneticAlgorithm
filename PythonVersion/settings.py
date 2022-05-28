@@ -4,6 +4,7 @@ class Settings:
 		self.__sons_number = 4
 		self.__changes_number = 20
 		self.__mutation_type = "Square"
+		self.__loss_function = "MSE"
 
 	def set_changes_scale(self, value):
 		self.__changes_scale = value
@@ -28,3 +29,9 @@ class Settings:
 
 	def get_mutation_type(self):
 		return self.__mutation_type
+
+	def set_loss_function(self, value):
+		self.__loss_function = value
+
+	def get_loss_function(self):
+		return self.__loss_function
