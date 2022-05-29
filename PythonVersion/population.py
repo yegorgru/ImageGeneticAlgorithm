@@ -12,6 +12,9 @@ class Population:
 		for i in range(count):
 			self.__population.append(np.random.randint(0,256,shape,dtype=np.uint8))
 
+	def get_best_creature(self):
+		return self.__population[0]
+
 	def next(self, target):
 		loss_value = self.__loss_sort(target)
 		if self.__settings.is_single_parent():

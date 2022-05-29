@@ -15,6 +15,8 @@ class UI:
 		self.mutation_type = "-COMBO-MUTATION-"
 		self.loss_function = "-LOSS-FUNCTION-"
 		self.creation_type = "-CREATION-TYPE-"
+		self.stop_resume = "Stop/Resume"
+		self.export = "Export"
 		self.__settings = settings
 
 	def create_window(self):
@@ -23,12 +25,13 @@ class UI:
 			[sg.Text('Changes max scale'), sg.Slider(range=(1, 100), default_value=self.__settings.get_changes_scale(), orientation='h', key=self.changes_scale, enable_events=True)],
 			[sg.Text('Number of survivors'), sg.Slider(range=(1, 4), default_value=self.__settings.get_survivors_number(), orientation='h', key=self.survivors_number, enable_events=True)],
 			[sg.Text('Number of children'), sg.Slider(range=(1, 8), default_value=self.__settings.get_children_number(), orientation='h', key=self.children_number, enable_events=True)],
-			[sg.Text('Changes max number'), sg.Slider(range=(1, 50), default_value=self.__settings.get_changes_number(), orientation='h', key=self.changes_number, enable_events=True)],
+			[sg.Text('Changes max number'), sg.Slider(range=(1, 20), default_value=self.__settings.get_changes_number(), orientation='h', key=self.changes_number, enable_events=True)],
 			[sg.Text('Mutation type'), sg.Combo(values=('Square', 'Line', 'Point', 'Triangle', 'Circle'), default_value='Square', readonly=True, key=self.mutation_type, enable_events=True)],
 			[sg.Text('Loss function'), sg.Combo(values=('MSE', 'RMSE', 'MAE', 'Log-Cosh'), default_value='MSE', readonly=True, key=self.loss_function, enable_events=True)],
 			[sg.Text('Newborn creation type'), sg.Combo(values=('Single parent', 'Two parent'), default_value='Single parent', readonly=True, key=self.creation_type, enable_events=True)],
 			[sg.Text('Generation'), sg.Text(size=(40,1), key=self.iteration)],
-			[sg.Text('Loss value'), sg.Text(size=(40,1), key=self.loss_value)]
+			[sg.Text('Loss value'), sg.Text(size=(40,1), key=self.loss_value)],
+			[sg.Button(self.stop_resume), sg.Button(self.export)]
 		]
 		target_image_col = [[sg.Image(key=self.target_image_name)]]
 		created_image_col = [[sg.Image(key=self.generated_image_name)]]

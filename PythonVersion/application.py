@@ -12,32 +12,34 @@ class Application:
 		self.__ui.create_window()
 		self.__is_running = False
 		self.__iter = 0
+		self.__target = None
+		self.__saved_files_counter = 0
 
 	def run(self):
 		while True:
 		    event, values = self.__ui.get_user_input(10)
 		    if event in self.__ui.exit:
 		        break
-		    if event == self.__ui.file_path:
+		    elif event == self.__ui.file_path:
 		        try:
 		            filename = values[event]
 		            self.start(filename)
 		        except Exception as E:
 		            print(f'** Error {E} **')
 		            pass
-		    if event == self.__ui.changes_scale:
+		    elif event == self.__ui.changes_scale:
 		    	self.__settings.set_changes_scale(int(values[event]))
-		    if event == self.__ui.survivors_number:
+		    elif event == self.__ui.survivors_number:
 		    	self.__settings.set_survivors_number(int(values[event]))
-		    if event == self.__ui.children_number:
+		    elif event == self.__ui.children_number:
 		    	self.__settings.set_children_number(int(values[event]))
-		    if event == self.__ui.changes_number:
+		    elif event == self.__ui.changes_number:
 		    	self.__settings.set_changes_number(int(values[event]))
-		    if event == self.__ui.mutation_type:
+		    elif event == self.__ui.mutation_type:
 		    	self.__settings.set_mutation_type(values[event])
-		    if event == self.__ui.loss_function:
+		    elif event == self.__ui.loss_function:
 		    	self.__settings.set_loss_function(values[event])
-		    if event == self.__ui.creation_type:
+		    elif event == self.__ui.creation_type:
 		    	self.__settings.set_single_parent(values[event])
 		    	if self.__settings.is_single_parent():
 		    		self.__ui.enable(self.__ui.survivors_number)
@@ -45,6 +47,14 @@ class Application:
 		    		self.__settings.set_survivors_number(2)
 		    		self.__ui.update(self.__ui.survivors_number, 2)
 		    		self.__ui.disable(self.__ui.survivors_number)
+		    elif event == self.__ui.stop_resume:
+		    	if self.__target is not None:
+		    		self.__is_running = not self.__is_running
+		    elif event == self.__ui.export:
+		    	if self.__target is not None:
+		    		img = image_from_array(self.__population.get_best_creature())
+		    		self.__saved_files_counter = self.__saved_files_counter + 1
+		    		img.save("img" + str(self.__saved_files_counter) + ".jpg")
 		    if self.__is_running:
 		    	best, loss_value = self.__population.next(self.__target)
 		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(best)))

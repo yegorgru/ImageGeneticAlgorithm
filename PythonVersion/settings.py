@@ -3,7 +3,7 @@ class Settings:
 		self.__changes_scale = 20
 		self.__survivors_number = 2
 		self.__children_number = 4
-		self.__changes_number = 20
+		self.__changes_number = 10
 		self.__mutation_type = "Square"
 		self.__loss_function = "MSE"
 		self.__is_single_parent = True
