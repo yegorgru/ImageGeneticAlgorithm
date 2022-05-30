@@ -1,12 +1,13 @@
 from ui import UI
-from image_loader import *
+from utils import *
 from population import Population
 from settings import Settings
+import time
 
 from numpy import asarray
 
 class Application:
-	def __init__(self):
+	def __init__(self, control_point_name):
 		self.__settings = Settings()
 		self.__ui = UI(self.__settings)
 		self.__ui.create_window()
@@ -14,6 +15,8 @@ class Application:
 		self.__iter = 0
 		self.__target = None
 		self.__saved_files_counter = 0
+		self.__control_point_name = control_point_name
+		self.__next_control_point = 10
 
 	def run(self):
 		while True:
@@ -52,21 +55,39 @@ class Application:
 		    		self.__is_running = not self.__is_running
 		    elif event == self.__ui.export:
 		    	if self.__target is not None:
-		    		img = image_from_array(self.__population.get_best_creature())
 		    		self.__saved_files_counter = self.__saved_files_counter + 1
-		    		img.save("img" + str(self.__saved_files_counter) + ".jpg")
+		    		self.export("img" + str(self.__saved_files_counter) + ".jpg")
 		    if self.__is_running:
 		    	best, loss_value = self.__population.next(self.__target)
 		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(best)))
 		    	self.__iter = self.__iter + 1;
 		    	self.__ui.update(self.__ui.iteration, self.__iter)
 		    	self.__ui.update(self.__ui.loss_value, loss_value)
+		    	if self.__iter == self.__next_control_point:
+		    		self.control_point()	    		
 		self.__ui.close()
 
 	def start(self, filename):
-		size = self.__ui.get_width()/2.5, self.__ui.get_height()/2.5
-		img = image_from_file(filename, size)
+		max_size = self.__ui.get_width()/2.5, self.__ui.get_height() * 0.9
+		img = image_from_file(filename, max_size)
 		self.__target = asarray(img)
 		self.__ui.updateData(self.__ui.target_image_name, image_to_bytes(img))
 		self.__population = Population(self.__settings, self.__target.shape, 10)
 		self.__is_running = True
+		self.__start_time = time_as_int()
+
+	def export(self, filename):
+		img = image_from_array(self.__population.get_best_creature())
+		img.save(filename)
+
+	def control_point(self):
+		if self.__control_point_name is not None:
+			self.__next_control_point = self.__next_control_point * 10
+			file_object = open(self.__control_point_name + ".txt", 'a+')
+			current_time = time_as_int() - self.__start_time
+			time_value = '{:02d}:{:02d}.{:02d}'.format((current_time // 100) // 60,
+	                                                        (current_time // 100) % 60,
+	                                                        current_time % 100)
+			file_object.write(time_value + "\n")
+			self.export(self.__control_point_name + str(self.__iter) + '.jpg')
+

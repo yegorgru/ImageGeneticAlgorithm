@@ -21,7 +21,7 @@ class UI:
 
 	def create_window(self):
 		settings_col = [
-			[sg.Text('Path'), sg.In(size=(25,1), enable_events=True, key=self.file_path), sg.FileBrowse(file_types=(("JPG", "*.jpg"), ("PNG", "*.png"),))],
+			[sg.Text('Path'), sg.In(size=(25,1), enable_events=True, key=self.file_path), sg.FileBrowse(file_types=(("JPG", "*.jpg"), ("JPEG", "*.jpeg"), ("PNG", "*.png"),))],
 			[sg.Text('Changes max scale'), sg.Slider(range=(1, 100), default_value=self.__settings.get_changes_scale(), orientation='h', key=self.changes_scale, enable_events=True)],
 			[sg.Text('Number of survivors'), sg.Slider(range=(1, 4), default_value=self.__settings.get_survivors_number(), orientation='h', key=self.survivors_number, enable_events=True)],
 			[sg.Text('Number of children'), sg.Slider(range=(1, 8), default_value=self.__settings.get_children_number(), orientation='h', key=self.children_number, enable_events=True)],
