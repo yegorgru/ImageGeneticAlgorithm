@@ -56,7 +56,7 @@ class Population:
 
 	def __two_parent_mode(self):
 		children_num = self.__settings.get_children_number()
-		new_size = children_num * 2 + 2;
+		new_size = children_num + 2
 		if new_size != len(self.__population):
 			new_population = self.__population[:2]
 			for i in range(2, new_size):
