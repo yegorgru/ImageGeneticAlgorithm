@@ -58,11 +58,11 @@ class Application:
 		    		self.__saved_files_counter = self.__saved_files_counter + 1
 		    		self.export("img" + str(self.__saved_files_counter) + ".jpg")
 		    if self.__is_running:
-		    	best, loss_value = self.__population.next(self.__target)
+		    	best, self.__loss_value = self.__population.next(self.__target)
 		    	self.__ui.updateData(self.__ui.generated_image_name, image_to_bytes(image_from_array(best)))
 		    	self.__iter = self.__iter + 1;
 		    	self.__ui.update(self.__ui.iteration, self.__iter)
-		    	self.__ui.update(self.__ui.loss_value, loss_value)
+		    	self.__ui.update(self.__ui.loss_value, self.__loss_value)
 		    	if self.__iter == self.__next_control_point:
 		    		self.control_point()	    		
 		self.__ui.close()
@@ -88,6 +88,6 @@ class Application:
 			time_value = '{:02d}:{:02d}.{:02d}'.format((current_time // 100) // 60,
 	                                                        (current_time // 100) % 60,
 	                                                        current_time % 100)
-			file_object.write(time_value + "\n")
+			file_object.write("Time: " + time_value + ", loss value: " + str(self.__loss_value) + "\n")
 			self.export(self.__control_point_name + str(self.__iter) + '.jpg')
 
